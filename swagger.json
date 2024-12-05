@@ -1,0 +1,103 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "API description in Markdown.\nSchemes:\nhttps",
+    "title": "Sample API",
+    "version": "1.0.0"
+  },
+  "host": "api.example.com",
+  "basePath": "/v2",
+  "paths": {
+    "/users": {
+      "get": {
+        "description": "Returns all users",
+        "operationId": "findUsers",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "maximum number of results to return",
+            "name": "Limit",
+            "in": "query"
+          }
+        ]
+      },
+      "post": {
+        "description": "Create a new user",
+        "operationId": "addUser",
+        "parameters": [
+          {
+            "description": "Add a new user",
+            "name": "User",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "description": "User user",
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "description": "id",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "description": "name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "place": {
+          "description": "place",
+          "type": "string",
+          "x-go-name": "Place"
+        }
+      },
+      "x-go-package": "swagger/models"
+    }
+  },
+  "responses": {
+    "addUserOK": {
+      "description": "AddUserOK user response",
+      "schema": {
+        "$ref": "#/definitions/User"
+      },
+      "headers": {
+        "body": {
+          "description": "In: Body"
+        }
+      }
+    },
+    "findUsersOK": {
+      "description": "FindUsersOK a list of users",
+      "headers": {
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "description": "In: Body"
+        }
+      }
+    }
+  }
+}
